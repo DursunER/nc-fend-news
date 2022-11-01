@@ -3,20 +3,21 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Home from "./components/Home";
 import { useEffect, useState } from "react";
-import { fetchTopics, fetchUsers } from "./api";
+import { fetchArticles, fetchTopics, fetchUsers } from "./api";
 import Users from "./components/Users";
 import Navbar from "./components/Navbar";
+import Topics from "./components/Topics";
+import Articles from "./components/Articles";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [topics, setTopics] = useState([]);
   const [users, setUsers] = useState([]);
-  const [currentUser, setCurrentUser] = useState([]);
+  const [articles, setArticles] = useState({});
 
   useEffect(() => {
     setIsLoading(true);
     fetchTopics().then((data) => {
-      console.log(data.topics);
       setTopics(data.topics);
       setIsLoading(false);
     });
@@ -25,8 +26,15 @@ function App() {
   useEffect(() => {
     setIsLoading(true);
     fetchUsers().then((data) => {
-      console.log(data.users);
       setUsers(data.users);
+      setIsLoading(false);
+    });
+  }, []);
+
+  useEffect(() => {
+    setIsLoading(true);
+    fetchArticles().then((data) => {
+      setArticles(data.articles);
       setIsLoading(false);
     });
   }, []);
@@ -41,16 +49,25 @@ function App() {
 
           <Route
             path="/users"
+            element={<Users users={users} isLoading={isLoading} />}
+          />
+
+          <Route
+            path="/topics"
             element={
-              <Users
-                users={users}
+              <Topics
+                topics={topics}
+                setTopics={setTopics}
+                articles={articles}
                 isLoading={isLoading}
-                setCurrentUser={setCurrentUser}
               />
             }
           />
 
-          <Route path="/articles/:id" element={<Home />} />
+          <Route
+            path="/articles"
+            element={<Articles articles={articles} isLoading={isLoading} />}
+          />
         </Routes>
       </div>
     </BrowserRouter>

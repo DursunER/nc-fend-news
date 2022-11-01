@@ -1,16 +1,11 @@
-import Articles from "./Articles";
+import { useState } from "react";
 
-const Users = ({users, isLoading, setCurrentUser}) => {
 
+const Users = ({users, isLoading }) => {
+    const [currentUser, setCurrentUser] = useState([]);
+
+    if (isLoading) return <p>Loading...</p>;
     
-    const handleClick = (username) => {
-        return setCurrentUser(username);
-       
-    };
-    
-    if (isLoading) {
-        <p> Loading</p>
-    }
     return (
         <div>
             <h2>Select Author to view articles</h2>
@@ -18,14 +13,14 @@ const Users = ({users, isLoading, setCurrentUser}) => {
                     {users.map(({username, name, avatar_url}) => {
                         return (
                         <div key={username}>
-                            <img src={avatar_url} alt={username} onClick={() => handleClick(username)}/>
+                            <img src={avatar_url} alt={username} onClick={() => setCurrentUser(username)}/>
                             <p>{username}</p>
                             <p>{name}</p>
                         </div>
                         )
                     })}
                 </div>
-                <Articles setCurrentUser = {setCurrentUser}/>
+                {/* send currentUser to filter articles */}
         </div>
     )
 }
