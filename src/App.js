@@ -8,12 +8,15 @@ import Users from "./components/Users";
 import Navbar from "./components/Navbar";
 import Topics from "./components/Topics";
 import Articles from "./components/Articles";
+import TopicArticles from "./components/TopicArticles";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [topics, setTopics] = useState([]);
   const [users, setUsers] = useState([]);
-  const [articles, setArticles] = useState({});
+  const [articles, setArticles] = useState([]);
+  const [currentTopic, setCurrentTopic] = useState("");
+  const [currentArticles, setCurrentArticles] = useState([]);
 
   useEffect(() => {
     setIsLoading(true);
@@ -57,9 +60,11 @@ function App() {
             element={
               <Topics
                 topics={topics}
-                setTopics={setTopics}
-                articles={articles}
+                currentTopic={currentTopic}
+                setCurrentTopic={setCurrentTopic}
                 isLoading={isLoading}
+                setIsLoading={setIsLoading}
+                onCurrentArticlesLoad={setCurrentArticles}
               />
             }
           />
@@ -67,6 +72,18 @@ function App() {
           <Route
             path="/articles"
             element={<Articles articles={articles} isLoading={isLoading} />}
+          />
+
+          <Route
+            path="/topics/:currentTopic"
+            element={
+              <TopicArticles
+                currentArticles={currentArticles}
+                currentTopic={currentTopic}
+                setCurrentTopic={setCurrentTopic}
+                isLoading={isLoading}
+              />
+            }
           />
         </Routes>
       </div>
