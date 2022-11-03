@@ -87,3 +87,10 @@ p {
   
 }
 
+#news {
+  padding: 100%;
+  background-image: url("../public/worldnews.png");
+  background-repeat: no-repeat;
+  background-size: 50%;
+  
+}

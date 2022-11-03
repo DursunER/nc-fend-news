@@ -2,11 +2,11 @@ import { useState } from "react";
 
 
 const Users = ({users, isLoading }) => {
+    
     const [currentUser, setCurrentUser] = useState([]);
 
-    if (isLoading) return <p>Loading...</p>;
-    
-    return (
+    if (isLoading) return <p>Loading...</p>
+    else return (
         <div>
             <h2>Select Author to view articles</h2>
                 <div className="users-container">
@@ -20,7 +20,7 @@ const Users = ({users, isLoading }) => {
                         )
                     })}
                 </div>
-                {/* send currentUser to filter articles */}
+           
         </div>
     )
 }
