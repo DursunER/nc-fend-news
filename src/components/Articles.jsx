@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 function Articles({ articles, isLoading }) {
-  const [hide, setHide] = useState(true);
+  const [visable, setVisable] = useState(false);
 
   if (isLoading) return <p>Loading...</p>;
   else
@@ -25,11 +25,13 @@ function Articles({ articles, isLoading }) {
                   <button
                     type="button"
                     className="collapsible"
-                    onClick={() => setHide(false)}
+                    onClick={() => setVisable(!visable)}
                   >
                     <strong>Title:</strong> {title}
                   </button>
-                  <div className={hide ? "hiden" : null}>
+                  <div
+                    className={visable ? "element-visable" : "element-hidden"}
+                  >
                     <p>
                       <strong>Topic:</strong>: {topic}
                     </p>

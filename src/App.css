@@ -70,12 +70,13 @@ h2 {
   background-color: rgb(128, 133, 112);
 }
 
-.hiden {
-  display: none;
-  overflow: hidden;
-  background-color: #8f8a8a;
- 
+.element-visible { 
+  display: block;
 }
+            
+.element-hidden { 
+  display: none;
+  background-color: #8f8a8a;}
 
 p {
   padding-left: 17px;
