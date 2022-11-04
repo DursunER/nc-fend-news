@@ -8,7 +8,6 @@ function Navbar() {
       <Link to="/users">Authors</Link>
       <Link to="/topics">Article Categories</Link>
       <Link to="/articles">See all Articles</Link>
-      <Link to="/articles/:article_id">Read an Article</Link>
     </div>
   );
 }

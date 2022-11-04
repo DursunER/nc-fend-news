@@ -1,20 +1,28 @@
 import React, { useState } from "react";
+import { fetchTopicByArticleId } from "../api";
+import { Link } from "react-router-dom";
 
-function Articles({ articles, isLoading }) {
+function Articles({
+  articles,
+  currentArticle,
+  setCurrentArticle,
+  isLoading,
+  setIsLoading,
+}) {
   const [visable, setVisable] = useState(false);
   const [clickedId, setclickedId] = useState();
-  const [buttonClick, setButtonClick] = useState();
-  const [readButton, setReadButton] = useState("");
 
   const handleClick1 = (article_id) => {
     setVisable(!visable);
     setclickedId(article_id);
-    setReadButton("Read");
   };
 
-  const handleClick2 = () => {
-    setButtonClick(!buttonClick);
-    buttonClick ? setReadButton("Read") : setReadButton("Close");
+  const handleClick2 = (article_id) => {
+    setIsLoading(true);
+    fetchTopicByArticleId(article_id).then((data) => {
+      setCurrentArticle(data.article);
+      setIsLoading(false);
+    });
   };
 
   if (isLoading) return <p>Loading...</p>;
@@ -71,25 +79,13 @@ function Articles({ articles, isLoading }) {
                       <p>
                         <strong>Comment count:</strong> {comment_count}
                       </p>
-                      <div className="read">
-                        <button
-                          onClick={() => {
-                            handleClick2(setButtonClick(false));
-                          }}
-                        >
-                          {readButton} the Article
-                        </button>
-                      </div>
-                      <div
-                        className={
-                          readButton === "Close" && buttonClick
-                            ? "element-visable"
-                            : "element-hidden"
-                        }
+                      <Link
+                        to={`/articles/${article_id}`}
+                        className="topics"
+                        onClick={() => handleClick2(article_id)}
                       >
-                        <p> Article: {body}</p>
-                      </div>
-                      <p></p>
+                        Read the Article
+                      </Link>
                     </div>
                   </div>
                 </div>
