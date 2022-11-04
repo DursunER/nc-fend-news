@@ -101,6 +101,7 @@ function App() {
             path={`/articles/${currentArticle.article_id}`}
             element={
               <CurrentArticle
+                users={users}
                 currentArticle={currentArticle}
                 isLoading={isLoading}
               />

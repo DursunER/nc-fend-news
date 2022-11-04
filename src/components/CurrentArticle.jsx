@@ -1,6 +1,6 @@
 import React from "react";
 
-function CurrentArticle({ currentArticle, isLoading }) {
+function CurrentArticle({ users, currentArticle, isLoading }) {
   console.log(currentArticle);
   const {
     article_id,
@@ -21,11 +21,13 @@ function CurrentArticle({ currentArticle, isLoading }) {
           <strong>Article Id:</strong>: {article_id}
         </p>
         <p>
-          <strong>Topic:</strong>: {title}
+          <strong>Title:</strong> {title}
         </p>
         <p>
-          <strong>Topic:</strong>: {topic}
+          <strong>Topic:</strong> {topic}
         </p>
+        <img src={users.avatar_url} alt={users.username} />
+
         <p>
           <strong>Author:</strong> {author}
         </p>
