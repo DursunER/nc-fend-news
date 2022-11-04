@@ -16,7 +16,6 @@ function Topics({
   const handleClick = (slug) => {
     setIsLoading(true);
     fetchTopicArticles(slug).then((data) => {
-      console.log("the response :", data.articles);
       setCurrentArticles(data.articles);
       setCurrentTopic(slug);
       setIsLoading(false);

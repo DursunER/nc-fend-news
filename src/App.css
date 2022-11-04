@@ -55,31 +55,42 @@ h2 {
 }
 
 .collapsible {
-  background-color: rgb(185, 192, 185);
-  color: white;
+  background-color: #A1B8CA;
+  border: 1px solid black;
+  border-radius: 10px;
+  color: rgb(20, 75, 20);
   cursor: pointer;
   padding: 18px;
+  margin: 1px;
   width: 100%;
-  border: none;
   text-align: left;
-  outline: none;
-  font-size: 15px;
+  font-size: 20px;
+  
 }
 
 .active, .collapsible:hover {
-  background-color: rgb(128, 133, 112);
+  background-color: rgb(213, 231, 156);
+
 }
+
 
 .element-visible { 
   display: block;
+
 }
             
 .element-hidden { 
   display: none;
-  background-color: #8f8a8a;}
+
+}
 
 p {
-  padding-left: 17px;
+  margin-left: 20px;
+}
+
+.read {
+  text-align: center;
+  
 }
 
 .topics {
@@ -94,4 +105,16 @@ p {
   background-repeat: no-repeat;
   background-size: 50%;
   
+}
+
+.article {
+  background-color: rgb(226, 239, 226);
+  border-radius: 10px;
+}
+
+.currentArticle {
+  border: 1px solid black;
+  background-color: rgb(242, 242, 233);
+  border: 1px solid black;
+  border-radius: 10px;
 }

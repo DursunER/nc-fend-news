@@ -39,3 +39,12 @@ export const fetchTopicArticles = (slug) => {
     })
     .catch(console.log);
 };
+
+export const fetchTopicByArticleId = (article_id) => {
+  return ncNewsApi
+    .get(`/articles/${article_id}`)
+    .then((res) => {
+      return res.data;
+    })
+    .catch(console.log);
+};

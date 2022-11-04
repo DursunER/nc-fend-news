@@ -1,7 +1,29 @@
 import React, { useState } from "react";
+import { fetchTopicByArticleId } from "../api";
+import { Link } from "react-router-dom";
 
-function Articles({ articles, isLoading }) {
+function Articles({
+  articles,
+  currentArticle,
+  setCurrentArticle,
+  isLoading,
+  setIsLoading,
+}) {
   const [visable, setVisable] = useState(false);
+  const [clickedId, setclickedId] = useState();
+
+  const handleClick1 = (article_id) => {
+    setVisable(!visable);
+    setclickedId(article_id);
+  };
+
+  const handleClick2 = (article_id) => {
+    setIsLoading(true);
+    fetchTopicByArticleId(article_id).then((data) => {
+      setCurrentArticle(data.article);
+      setIsLoading(false);
+    });
+  };
 
   if (isLoading) return <p>Loading...</p>;
   else
@@ -25,32 +47,46 @@ function Articles({ articles, isLoading }) {
                   <button
                     type="button"
                     className="collapsible"
-                    onClick={() => setVisable(!visable)}
+                    onClick={() => {
+                      handleClick1(article_id);
+                      setVisable(!visable);
+                    }}
                   >
                     <strong>Title:</strong> {title}
                   </button>
-                  <div
-                    className={visable ? "element-visable" : "element-hidden"}
-                  >
-                    <p>
-                      <strong>Topic:</strong>: {topic}
-                    </p>
-                    <p>
-                      <strong>Author:</strong> {author}
-                    </p>
-                    <p>
-                      <strong>Content:</strong> {body}
-                    </p>
-                    <p>
-                      <strong>Created on:</strong>
-                      {created_at}
-                    </p>
-                    <p>
-                      <strong>Votes:</strong> {votes}
-                    </p>
-                    <p>
-                      <strong>Comment count:</strong> {comment_count}
-                    </p>
+                  <div className="article">
+                    <div
+                      className={
+                        visable && clickedId === article_id
+                          ? "element-visable"
+                          : "element-hidden"
+                      }
+                    >
+                      <p>
+                        <strong>Topic:</strong>: {topic}
+                      </p>
+                      <p>
+                        <strong>Author:</strong> {author}
+                      </p>
+
+                      <p>
+                        <strong>Created on:</strong>
+                        {created_at}
+                      </p>
+                      <p>
+                        <strong>Votes:</strong> {votes}
+                      </p>
+                      <p>
+                        <strong>Comment count:</strong> {comment_count}
+                      </p>
+                      <Link
+                        to={`/articles/${article_id}`}
+                        className="topics"
+                        onClick={() => handleClick2(article_id)}
+                      >
+                        Read the Article
+                      </Link>
+                    </div>
                   </div>
                 </div>
               );
