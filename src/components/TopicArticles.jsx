@@ -2,6 +2,20 @@ import React, { useState } from "react";
 
 function TopicArticles({ currentArticles, isLoading }) {
   const [visable, setVisable] = useState(false);
+  const [clickedId, setclickedId] = useState();
+  const [buttonClick, setButtonClick] = useState();
+  const [readButton, setReadButton] = useState("");
+
+  const handleClick1 = (article_id) => {
+    setVisable(!visable);
+    setclickedId(article_id);
+    setReadButton("Read");
+  };
+
+  const handleClick2 = () => {
+    setButtonClick(!buttonClick);
+    buttonClick ? setReadButton("Read") : setReadButton("Close");
+  };
 
   if (isLoading) return <p>Loading...</p>;
   else
@@ -25,32 +39,59 @@ function TopicArticles({ currentArticles, isLoading }) {
                   <button
                     type="button"
                     className="collapsible"
-                    onClick={() => setVisable(!visable)}
+                    onClick={() => {
+                      handleClick1(article_id);
+                      setVisable(!visable);
+                    }}
                   >
                     <strong>Title:</strong> {title}
                   </button>
-                  <div
-                    className={visable ? "element-visable" : "element-hidden"}
-                  >
-                    <p>
-                      <strong>Topic:</strong>: {topic}
-                    </p>
-                    <p>
-                      <strong>Author:</strong> {author}
-                    </p>
-                    <p>
-                      <strong>Content:</strong> {body}
-                    </p>
-                    <p>
-                      <strong>Created on:</strong>
-                      {created_at}
-                    </p>
-                    <p>
-                      <strong>Votes:</strong> {votes}
-                    </p>
-                    <p>
-                      <strong>Comment count:</strong> {comment_count}
-                    </p>
+                  <div className="article">
+                    <div
+                      className={
+                        visable && clickedId === article_id
+                          ? "element-visable"
+                          : "element-hidden"
+                      }
+                    >
+                      <p>
+                        <strong>Topic:</strong>: {topic}
+                      </p>
+                      <p>
+                        <strong>Author:</strong> {author}
+                      </p>
+
+                      <p>
+                        <strong>Created on:</strong>
+                        {created_at}
+                      </p>
+                      <p>
+                        <strong>Votes:</strong> {votes}
+                      </p>
+                      <p>
+                        <strong>Comment count:</strong> {comment_count}
+                      </p>
+                      <div className="read">
+                        <button
+                          onClick={() => {
+                            handleClick2(setButtonClick(false));
+                          }}
+                        >
+                          {readButton} the Article
+                        </button>
+                      </div>
+                      <div
+                        className={
+                          readButton === "Close" && buttonClick
+                            ? "element-visable"
+                            : "element-hidden"
+                        }
+                      >
+                        <p> Article: {body}</p>
+                      </div>
+
+                      <p></p>
+                    </div>
                   </div>
                 </div>
               );

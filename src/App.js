@@ -85,6 +85,11 @@ function App() {
               />
             }
           />
+
+          <Route
+            path="/article/article-id"
+            element={<Articles articles={articles} isLoading={isLoading} />}
+          />
         </Routes>
       </div>
     </BrowserRouter>
